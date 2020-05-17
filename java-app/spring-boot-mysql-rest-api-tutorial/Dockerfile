@@ -1,0 +1,1 @@
+FROM java:1.8
