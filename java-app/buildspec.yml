@@ -12,10 +12,8 @@ phases:
   build:
     commands:
       - echo Run unit test
-      - create database notes_app
       - mvn package
-      - java -jar target/easy-notes-1.0.0.jar
-      - docker-compose run web python test_basic.py
+      - docker-compose run .
       - echo Build started on `date`
       - mvn test 
       - echo Building the Docker image...          
