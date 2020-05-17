@@ -1,4 +1,4 @@
-FROM java:1.8
+FROM openjdk:7
 
 copy ./target /usr/local/
 

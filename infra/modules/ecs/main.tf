@@ -424,7 +424,7 @@ resource "aws_codebuild_project" "codebuild_docker_image" {
   }
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "aws/codebuild/docker:17.09.0"
+    image        = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
     type         = "LINUX_CONTAINER"
     privileged_mode = true
 
@@ -444,7 +444,7 @@ resource "aws_codebuild_project" "codebuild_docker_image" {
 
   source {
     type            = "CODEPIPELINE"
-    buildspec       = "web/buildspec.yml"
+    buildspec       = "java-app/buildspec.yml"
   }
 
 }
