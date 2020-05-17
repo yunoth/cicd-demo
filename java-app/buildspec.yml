@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Run unit test
       - mvn package
-      - docker-compose run .
+      - docker-compose up
       - echo Build started on `date`
       - mvn test 
       - echo Building the Docker image...          
