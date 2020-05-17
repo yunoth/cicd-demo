@@ -8,7 +8,8 @@ phases:
       - cd java-app
   build:
     commands:
-      - sudo yum install -y maven
+      - echo Build started in `date`
+      - mvn test 
       - echo Run unit test
       - docker-compose run web python test_basic.py
       - echo Build started on `date`
