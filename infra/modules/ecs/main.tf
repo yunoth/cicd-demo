@@ -341,8 +341,12 @@ resource "aws_iam_role_policy" "iam_code_build_policy" {
 POLICY
 }
 
+resource "random_id" "random" {
+ byte_length = 5
+}
+
 resource "aws_s3_bucket" "default" {
-  bucket = "yunoth-java-app-codepipeline-ecs"
+  bucket = "${random_id.random.dec}-ecs"
   acl    = "private"
 
   tags = {
