@@ -6,7 +6,7 @@
         {
             "targetGroupArn": "%TG_ARN%",
             "containerName": "java-app",
-            "containerPort": 5000
+            "containerPort": 8080
         }
     ],
     "networkConfiguration": {
