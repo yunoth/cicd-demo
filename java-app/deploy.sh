@@ -13,7 +13,7 @@ ECS_TASK_DEFINITION_TEMPLATE="task.json"
 ECS_TASK="task-ecs.json"
 ECR_IMAGE="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_NAME}:${CODEBUILD_RESOLVED_SOURCE_VERSION}"
 # Register Task Definition
-sed -e "s;%ECR_IMAGE%;${ECR_IMAGE};g"  "s;%ECS_TASKEXEC_ARN%;${ECS_TASKEXEC_ARN};g"  ${ECS_TASK_DEFINITION_TEMPLATE} > ${ECS_TASK}
+sed -e "s;%ECR_IMAGE%;${ECR_IMAGE};g" -e "s;%ECS_TASKEXEC_ARN%;${ECS_TASKEXEC_ARN};g"  ${ECS_TASK_DEFINITION_TEMPLATE} > ${ECS_TASK}
 sed -e "s;%SUBNET_IDS%;${SUBNET_IDS};g" -e "s;%SG_IDS%;${SG_IDS};g" service.json > service_file.json
 
 aws ecs register-task-definition --family ${TASK_FAMILY} --cli-input-json file://${ECS_TASK}
