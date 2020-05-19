@@ -5,7 +5,7 @@
     "name": "java-app",
     "essential": true,
     "image": "%ECR_IMAGE%",
-    "memoryReservation": 2000,
+    "memoryReservation": 512,
     "portMappings": [
       {
         "protocol": "tcp",
@@ -18,5 +18,5 @@
         "FARGATE"
   ], 
   "cpu": "256", 
-  "memory": "512"
+  "memory": "1024"
 }
