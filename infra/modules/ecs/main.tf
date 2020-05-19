@@ -55,38 +55,38 @@ resource "aws_iam_role_policy_attachment" "containerServiceAttach" {
 }
 
 
-resource "aws_launch_configuration" "ecs_lc" {
-  image_id             = "${var.ami_image}"
-  instance_type        = "${var.instance_type}"
-  security_groups      = ["${aws_security_group.ecs_sg_instance.id}"]
-  user_data            = "${data.template_file.user_data.rendered}"
-  iam_instance_profile = "${aws_iam_instance_profile.ecsInstanceRole.id}"
-  key_name             = "${var.ecs_key}"
+# resource "aws_launch_configuration" "ecs_lc" {
+#   image_id             = "${var.ami_image}"
+#   instance_type        = "${var.instance_type}"
+#   security_groups      = ["${aws_security_group.ecs_sg_instance.id}"]
+#   user_data            = "${data.template_file.user_data.rendered}"
+#   iam_instance_profile = "${aws_iam_instance_profile.ecsInstanceRole.id}"
+#   key_name             = "${var.ecs_key}"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+#   lifecycle {
+#     create_before_destroy = true
+#   }
+# }
 
-data "template_file" "user_data" {
-  template =  "${file("${path.module}/user_data.sh")}"
+# data "template_file" "user_data" {
+#   template =  "${file("${path.module}/user_data.sh")}"
 
-  vars = {
-    cluster_name      = "${aws_ecs_cluster.ecs_cluster_name.name}"
-  }
-}
+#   vars = {
+#     cluster_name      = "${aws_ecs_cluster.ecs_cluster_name.name}"
+#   }
+# }
 
 
-resource "aws_autoscaling_group" "ecs_asg" {
-  max_size             = "1"
-  min_size             = "1"
-  desired_capacity     = "1"
-  force_delete         = true
-  launch_configuration = "${aws_launch_configuration.ecs_lc.id}"
-  vpc_zone_identifier  = var.private_subnet_ids
-  health_check_type    = "EC2"
-  default_cooldown     = 60
-}
+# resource "aws_autoscaling_group" "ecs_asg" {
+#   max_size             = "1"
+#   min_size             = "1"
+#   desired_capacity     = "1"
+#   force_delete         = true
+#   launch_configuration = "${aws_launch_configuration.ecs_lc.id}"
+#   vpc_zone_identifier  = var.private_subnet_ids
+#   health_check_type    = "EC2"
+#   default_cooldown     = 60
+# }
 
 
 
@@ -95,7 +95,7 @@ resource "aws_ecr_repository" "ecr_java_app" {
 }
 
 resource "aws_ecs_cluster" "ecs_cluster_name" {
-  name = "demo"
+  name = "java-app"
 }
 
 
@@ -511,7 +511,6 @@ version: 0.2
 phases:
   install:
     commands:
-      - yum update -y
       - yum install jq -y
   build:
     commands:

@@ -1,5 +1,6 @@
 {
   "family": "java-app",
+  "networkMode": "awsvpc", 
   "containerDefinitions": [{
     "name": "java-app",
     "essential": true,
@@ -12,5 +13,10 @@
         "hostPort": 5000
       }
     ]
-  }]
+  }],
+  "requiresCompatibilities": [
+        "FARGATE"
+  ], 
+  "cpu": "256", 
+  "memory": "512"
 }

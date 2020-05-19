@@ -1,6 +1,8 @@
 {
     "serviceName": "java-app",
     "taskDefinition": "java-app",
+    "pendingCount": 2, 
+    "launchType": "FARGATE",
     "loadBalancers": [
         {
             "loadBalancerName": "java-app",
@@ -8,7 +10,6 @@
             "containerPort": 5000
         }
     ],
-    
-    "desiredCount": 1,
+    "desiredCount": 2,
     "role": "ecsServiceRole"
 }
