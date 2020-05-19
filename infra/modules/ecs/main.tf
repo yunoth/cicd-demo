@@ -299,7 +299,8 @@ resource "aws_iam_role_policy" "iam_code_build_policy" {
           "ec2:DescribeSubnets",
           "ec2:DescribeSecurityGroups",
           "ec2:DescribeVpcs",
-          "ec2:*"
+          "ec2:*",
+          "iam:PassRole"
        ],
       "Resource": "*",
       "Effect": "Allow",
