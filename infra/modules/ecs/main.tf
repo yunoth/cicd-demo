@@ -501,7 +501,16 @@ resource "aws_codebuild_project" "codebuild_deploy_on_ecs" {
       name  = "IMAGE_NAME"
       value = "java_app"
     }
-
+    #subnet_ids
+    environment_variable {
+      name  = "SUBNET_IDS"
+      value = var.private_subnet_ids[0]#,var.private_subnet_ids[1]]
+    }
+    #sg_ids
+    environment_variable {
+      name  = "SG_IDS"
+      value = "${aws_security_group.ecs_sg_instance.id}"
+    }
   }
 
   source {
