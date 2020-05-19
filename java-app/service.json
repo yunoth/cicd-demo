@@ -20,6 +20,5 @@
             "assignPublicIp": "DISABLED"
       }
     },
-    "desiredCount": 2,
-    "role": "ecsServiceRole"
+    "desiredCount": 2
 }
