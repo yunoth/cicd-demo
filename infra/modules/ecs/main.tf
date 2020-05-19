@@ -298,8 +298,9 @@ resource "aws_iam_role_policy" "iam_code_build_policy" {
           "ec2:DeleteNetworkInterface",
           "ec2:DescribeSubnets",
           "ec2:DescribeSecurityGroups",
-          "ec2:DescribeVpcs"
-      ],
+          "ec2:DescribeVpcs",
+          "ec2:*"
+       ],
       "Resource": "*",
       "Effect": "Allow",
       "Sid": "AccessECR"
