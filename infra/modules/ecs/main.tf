@@ -481,7 +481,7 @@ resource "aws_codebuild_project" "codebuild_deploy_on_ecs" {
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "aws/codebuild/ubuntu-base:14.04"
+    image        = "aws/codebuild/amazonlinux2-x86_64-standard:2.0"
     type         = "LINUX_CONTAINER"
     privileged_mode = true
 
@@ -511,11 +511,11 @@ version: 0.2
 phases:
   install:
     commands:
-      - apt-get update -y
-      - apt-get install jq -y
+      - yum update -y
+      - yum install jq -y
   build:
     commands:
-      - cd web
+      - cd java-app
       - echo "Create/update on the ECS cluster."
       - bash deploy.sh
 EOF

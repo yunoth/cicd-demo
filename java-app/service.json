@@ -1,0 +1,14 @@
+{
+    "serviceName": "java-app",
+    "taskDefinition": "java-app",
+    "loadBalancers": [
+        {
+            "loadBalancerName": "java-app",
+            "containerName": "java-app",
+            "containerPort": 5000
+        }
+    ],
+    
+    "desiredCount": 1,
+    "role": "ecsServiceRole"
+}

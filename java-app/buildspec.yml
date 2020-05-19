@@ -11,9 +11,9 @@ phases:
       java: corretto8
   build:
     commands:
-      - echo Run unit test
       - mvn package
       - echo Build started on `date`
+      - echo Run unit test
       - mvn test 
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION .
