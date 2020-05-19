@@ -291,7 +291,9 @@ resource "aws_iam_role_policy" "iam_code_build_policy" {
           "ecr:PutImage",
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
-          "ecr:CompleteLayerUpload"
+          "ecr:CompleteLayerUpload",
+          "ec2:Describe*",
+          "ec2:DeleteNetworkInterface"
       ],
       "Resource": "*",
       "Effect": "Allow",
@@ -444,6 +446,14 @@ resource "aws_codebuild_project" "codebuild_docker_image" {
       name  = "IMAGE_REPO_NAME"
       value = "${aws_ecr_repository.ecr_java_app.name}"
     }
+  }
+
+  vpc_config {
+    vpc_id = var.vpc_id
+    subnets = var.private_subnet_ids
+    security_group_ids = [
+      "${aws_security_group.ecs_sg_instance.id}",
+    ]
   }
 
   source {

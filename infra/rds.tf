@@ -58,7 +58,7 @@ module "ec2_cluster" {
   key_name               = "${aws_key_pair.generated_key.key_name}"
   monitoring             = false
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  subnet_id              = module.vpc.private_subnets[2]
+  subnet_id              = module.vpc.public_subnets[0]
   user_data              = data.template_file.mysql_userinit.rendered
 
   tags = {
