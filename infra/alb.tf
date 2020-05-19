@@ -36,6 +36,7 @@ module "alb" {
 
   target_groups = [
     {
+      name = "javaapp-tg"
       backend_protocol = "HTTP"
       backend_port     = 8080
       target_type      = "ip"
