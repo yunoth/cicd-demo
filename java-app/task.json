@@ -3,6 +3,15 @@
   "networkMode": "awsvpc", 
   "executionRoleArn": "%ECS_TASKEXEC_ARN%",
   "containerDefinitions": [{
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/java-app",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+    },
     "name": "java-app",
     "essential": true,
     "image": "%ECR_IMAGE%",
