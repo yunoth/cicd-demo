@@ -194,56 +194,56 @@ resource "aws_iam_role_policy" "ecsServiceRolePolicy" {
 }
 POLICY
 }
-#Allow all
-resource "aws_security_group" "elb_sg" {
-  name        = "allow_all"
-  description = "Allow all inbound and outbound traffic"
-  vpc_id      = "${var.vpc_id}"
-  ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-    egress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+# #Allow all
+# resource "aws_security_group" "elb_sg" {
+#   name        = "allow_all"
+#   description = "Allow all inbound and outbound traffic"
+#   vpc_id      = "${var.vpc_id}"
+#   ingress {
+#     from_port   = 0
+#     to_port     = 65535
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+#     egress {
+#     from_port   = 0
+#     to_port     = 65535
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  tags = {
-    Name = "allow_all"
-  }
-}
+#   tags = {
+#     Name = "allow_all"
+#   }
+# }
 # Create a new load balancer
-resource "aws_elb" "java-app-elb" {
-  name               = "java-app"
-  subnets = "${var.public_subnet_ids}"
-  listener {
-    instance_port     = 5000
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
-  }
+# resource "aws_elb" "java-app-elb" {
+#   name               = "java-app"
+#   subnets = "${var.public_subnet_ids}"
+#   listener {
+#     instance_port     = 5000
+#     instance_protocol = "http"
+#     lb_port           = 80
+#     lb_protocol       = "http"
+#   }
 
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    timeout             = 3
-    target              = "HTTP:5000/"
-    interval            = 30
-  }
+#   health_check {
+#     healthy_threshold   = 2
+#     unhealthy_threshold = 2
+#     timeout             = 3
+#     target              = "HTTP:5000/"
+#     interval            = 30
+#   }
 
-  cross_zone_load_balancing   = true
-  idle_timeout                = 400
-  connection_draining         = true
-  connection_draining_timeout = 400
-  security_groups = ["${aws_security_group.elb_sg.id}"]
-  tags = {
-    Name = "java-app"
-  }
-}
+#   cross_zone_load_balancing   = true
+#   idle_timeout                = 400
+#   connection_draining         = true
+#   connection_draining_timeout = 400
+#   security_groups = ["${aws_security_group.elb_sg.id}"]
+#   tags = {
+#     Name = "java-app"
+#   }
+# }
 resource "aws_iam_role" "iam_code_build_role" {
   name = "iam_code_build_role"
   permissions_boundary = ""
@@ -516,7 +516,10 @@ resource "aws_codebuild_project" "codebuild_deploy_on_ecs" {
       name = "ECS_TASKEXEC_ARN"
       value = "${aws_iam_role.ecs_tasks_execution_role.arn}"
     }
-
+    environment_variable {
+      name = "TG_ARN"
+      value = var.tg_arn
+    }
   }
 
   source {

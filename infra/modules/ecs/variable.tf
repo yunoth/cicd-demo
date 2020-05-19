@@ -41,10 +41,9 @@ variable "private_subnet_ids" {
 
 }
 
-variable "vpc_id" {
-  
-}
+variable "vpc_id" {}
 variable "public_subnet_ids" {
   type        = "list"
 }
 variable "region" {}
+variable "tg_arn" {}

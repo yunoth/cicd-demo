@@ -4,7 +4,7 @@
     "launchType": "FARGATE",
     "loadBalancers": [
         {
-            "loadBalancerName": "java-app",
+            "targetGroupArn": "%TG_ARN%",
             "containerName": "java-app",
             "containerPort": 5000
         }

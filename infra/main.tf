@@ -65,5 +65,6 @@ module "ecs" {
   public_subnet_ids =  [module.vpc.public_subnets[0],module.vpc.public_subnets[1]]
   vpc_id = module.vpc.vpc_id
   region = var.region
+  tg_arn = module.alb.target_group_arns[0]
 }
 
