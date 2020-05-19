@@ -1,7 +1,6 @@
 {
     "serviceName": "java-app",
     "taskDefinition": "java-app",
-    "pendingCount": 2, 
     "launchType": "FARGATE",
     "loadBalancers": [
         {
