@@ -292,8 +292,13 @@ resource "aws_iam_role_policy" "iam_code_build_policy" {
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
-          "ec2:Describe*",
-          "ec2:DeleteNetworkInterface"
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeDhcpOptions",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DeleteNetworkInterface",
+          "ec2:DescribeSubnets",
+          "ec2:DescribeSecurityGroups",
+          "ec2:DescribeVpcs"
       ],
       "Resource": "*",
       "Effect": "Allow",
