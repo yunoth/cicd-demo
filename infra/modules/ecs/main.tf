@@ -511,6 +511,11 @@ resource "aws_codebuild_project" "codebuild_deploy_on_ecs" {
       name  = "SG_IDS"
       value = "${aws_security_group.ecs_sg_instance.id}"
     }
+    environment_variable {
+      name = "ECS_TASKEXEC_ARN"
+      value = "${aws_iam_role.ecs_tasks_execution_role.arn}"
+    }
+
   }
 
   source {

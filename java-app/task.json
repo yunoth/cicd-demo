@@ -1,6 +1,7 @@
 {
   "family": "java-app",
   "networkMode": "awsvpc", 
+  "executionRoleArn": "%ECS_TASKEXEC_ARN%",
   "containerDefinitions": [{
     "name": "java-app",
     "essential": true,
