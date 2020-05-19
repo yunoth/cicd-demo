@@ -10,6 +10,17 @@
             "containerPort": 5000
         }
     ],
+    "networkConfiguration": {
+    "awsvpcConfiguration": {
+            "subnets": [
+                "%SUBNET_IDS%"
+            ], 
+            "securityGroups": [
+                "%SG_IDS%"
+            ], 
+            "assignPublicIp": "DISABLED"
+      }
+    },
     "desiredCount": 2,
     "role": "ecsServiceRole"
 }
