@@ -1,6 +1,6 @@
 FROM openjdk:7
 
-copy ./target /usr/local/
+copy ./target /usr/local/target/
 
 EXPOSE 8080
 
