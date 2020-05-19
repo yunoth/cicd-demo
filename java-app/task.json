@@ -5,7 +5,6 @@
   "containerDefinitions": [{
     "logConfiguration": {
         "logDriver": "awslogs",
-        "secretOptions": null,
         "options": {
           "awslogs-group": "/ecs/java-app",
           "awslogs-region": "us-east-1",
