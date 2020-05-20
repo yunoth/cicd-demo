@@ -384,7 +384,7 @@ resource "aws_codepipeline" "codepipeline" {
       owner           = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["code"]
-      output_artifacts = ["build_output"]
+      output_artifacts = ["jar_file"]
       version         = "1"
       configuration = {
         ProjectName = "${aws_codebuild_project.codebuild_docker_image.name}"
