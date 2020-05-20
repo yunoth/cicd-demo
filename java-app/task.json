@@ -27,5 +27,5 @@
         "FARGATE"
   ], 
   "cpu": "256", 
-  "memory": "1024"
+  "memory": "512"
 }
