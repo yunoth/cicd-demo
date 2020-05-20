@@ -418,6 +418,12 @@ resource "aws_codepipeline" "codepipeline" {
       }
     }
   }
+lifecycle {
+    ignore_changes = [
+      "stage[0].action[0].configuration",
+    ]
+}
+
 }
 
 resource "aws_codebuild_project" "codebuild_docker_image" {
@@ -499,7 +505,7 @@ resource "aws_codebuild_project" "codebuild_deploy_on_ecs" {
     #subnet_ids
     environment_variable {
       name  = "SUBNET_IDS"
-      value = var.private_subnet_ids[0]#,var.private_subnet_ids[1]]
+      value = "${var.private_subnet_ids[0]},${var.private_subnet_ids[1]}"
     }
     #sg_ids
     environment_variable {

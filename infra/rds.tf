@@ -98,7 +98,6 @@ module "db" {
 #   template = "${file("${path.module}/userdata.tpl")}"
 # }
 
-
 # module "ec2_cluster" {
 #   source                 = "terraform-aws-modules/ec2-instance/aws"
 #   version                = "~> 2.0"
@@ -109,7 +108,7 @@ module "db" {
 #   key_name               = "${aws_key_pair.generated_key.key_name}"
 #   monitoring             = false
 #   vpc_security_group_ids = [aws_security_group.rds_sg.id]
-#   subnet_id              = module.vpc.private_subnets[2]
+#   subnet_id              = module.vpc.public_subnets[0]
 #   user_data              = data.template_file.mysql_userinit.rendered
 
 #   tags = {
@@ -135,5 +134,5 @@ resource "aws_route53_record" "mysql-A" {
   type    = "CNAME"
   ttl     = "30"
   #records = [module.ec2_cluster.private_ip[0]]
-  records = [module.db.this_db_instance_endpoint]
+  records = [split(":",module.db.this_db_instance_endpoint)[0]]
 }
