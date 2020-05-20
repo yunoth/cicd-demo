@@ -1,13 +1,15 @@
-resource "aws_security_group" "rds_sg" {
-  name        = "sg_rds_instance"
-  description = "sg_rds_instance allow all"
+resource "aws_security_group" "alb_sg" {
+  name        = "alb_sg"
+  description = "alb_sg allow all"
   vpc_id      = module.vpc.vpc_id
+
   ingress {
-    from_port   = 0
-    to_port     = 65535
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
   egress {
     from_port   = 0
     to_port     = 65535
@@ -15,6 +17,55 @@ resource "aws_security_group" "rds_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+
+resource "aws_security_group" "ecs_sg" {
+  name        = "sg_ecs"
+  description = "sg_ecs allow all"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+resource "aws_security_group" "rds_sg" {
+  name        = "sg_rds"
+  description = "sg_rds allow all"
+  vpc_id      = module.vpc.vpc_id
+}
+
+resource "aws_security_group_rule" "rds_sg_in" {
+  type                     = "ingress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.ecs_sg.id
+  security_group_id        = aws_security_group.rds_sg.id
+  description              = "to connect from ecs"
+}
+
+resource "aws_security_group_rule" "rds_sg_out" {
+  type                     = "egress"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "tcp"
+  cidr_blocks              = ["0.0.0.0/0"]
+  security_group_id        = aws_security_group.rds_sg.id
+  description              = "for maintenance_window"
+}
+
 
 # module "db" {
 #   source  = "terraform-aws-modules/rds/aws"
@@ -26,7 +77,7 @@ resource "aws_security_group" "rds_sg" {
 #   allocated_storage = 1
 #   name     = "notes_app"
 #   username = "root"
-#   password = "callicoder"
+#   password = "Callicoder!23"
 #   port     = "3306"
 #   iam_database_authentication_enabled = true
 #   vpc_security_group_ids = [aws_security_group.rds_sg.id]

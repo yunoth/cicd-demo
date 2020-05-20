@@ -3,25 +3,6 @@
 data "aws_caller_identity" "current" {}
 
 
-resource "aws_security_group" "ecs_sg_instance" {
-  name        = "sg_ecs_instance"
-  description = "sg_ecs_instance allow all"
-  vpc_id      = "${var.vpc_id}"
-
-  ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
 
 resource "aws_iam_role" "iamEcsRole" {
   name = "iamEcsRole"
@@ -459,7 +440,7 @@ resource "aws_codebuild_project" "codebuild_docker_image" {
     vpc_id = var.vpc_id
     subnets = var.private_subnet_ids
     security_group_ids = [
-      "${aws_security_group.ecs_sg_instance.id}",
+      var.ecs_sg,
     ]
   }
 
@@ -510,7 +491,7 @@ resource "aws_codebuild_project" "codebuild_deploy_on_ecs" {
     #sg_ids
     environment_variable {
       name  = "SG_IDS"
-      value = "${aws_security_group.ecs_sg_instance.id}"
+      value = var.ecs_sg
     }
     environment_variable {
       name = "ECS_TASKEXEC_ARN"

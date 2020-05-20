@@ -47,3 +47,4 @@ variable "public_subnet_ids" {
 }
 variable "region" {}
 variable "tg_arn" {}
+variable "ecs_sg" {}

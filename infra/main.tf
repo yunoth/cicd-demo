@@ -66,5 +66,6 @@ module "ecs" {
   vpc_id = module.vpc.vpc_id
   region = var.region
   tg_arn = module.alb.target_group_arns[0]
+  ecs_sg = aws_security_group.ecs_sg.id
 }
 
