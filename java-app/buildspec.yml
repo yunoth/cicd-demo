@@ -26,5 +26,4 @@ phases:
       - ls -ltrh target
 artifacts:
   files:
-    - target/easy-notes-1.0.0.jar
-  discard-paths: no
+    - target/*.jar
