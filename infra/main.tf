@@ -51,6 +51,9 @@ resource "aws_codecommit_repository" "backend-repository" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "ecs_logs" {
+  name = "/ecs/java-app"
+}
 
 module "ecs" {
   source = "./modules/ecs"
