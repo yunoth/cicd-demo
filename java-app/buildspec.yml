@@ -26,4 +26,4 @@ phases:
       - ls -ltrh target
 artifacts:
   files:
-    - target/*.jar
+    - '**/*'
